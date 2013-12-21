@@ -1,5 +1,9 @@
 class LineItemsController < ApplicationController
   include CurrentCart
+
+  def line_item_params
+    params.require(:line_item).permit(:product_id)
+  end
   # GET /line_items
   # GET /line_items.json
   def index
