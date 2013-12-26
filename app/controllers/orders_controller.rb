@@ -32,15 +32,14 @@ class OrdersController < ApplicationController
   # POST /orders.json
   def create
     @order = Order.new(order_params)
-    @order.add_line_items_form_cart(@cart)
+    @order.add_line_items_from_cart(@cart)
 
     respond_to do |format|
       if @order.save
         Cart.destroy(session[:cart_id])
-        session[:cart_id] = nil
+        session[:cart_id]= nil
         OrderNotifier.received(@order).deliver
-
-        format.html { redirect_to store_url, notice: 'Thank you for your order.' }
+        format.html { redirect_to store_url, notice: I18n.t('.thanks') }
         format.json { render action: 'show', status: :created, location: @order }
       else
         format.html { render action: 'new' }

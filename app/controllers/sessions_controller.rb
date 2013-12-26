@@ -9,7 +9,7 @@ class SessionsController < ApplicationController
       session[:user_id] = user.id
       redirect_to admin_url
     else
-      redirect_to lofin_url, aler: "invalid user name or password"
+      redirect_to login_url, alert: "invalid user name or password"
     end
   end
 
